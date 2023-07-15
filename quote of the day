@@ -1,0 +1,28 @@
+import requests
+import random
+
+def get_motivational_quotes():
+    url = "https://zenquotes.io/api/today"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        quotes = [quote['q'] for quote in data]
+
+        return quotes
+
+    print("Failed to retrieve quotes.")
+    return []
+
+def display_random_quote(quotes):
+    if not quotes:
+        print("No quotes available.")
+        return
+
+    random_quote = random.choice(quotes)
+    print(f"Motivational Quote of the Day:")
+    print(random_quote)
+
+if __name__ == "__main__":
+    quotes = get_motivational_quotes()
+    display_random_quote(quotes)
